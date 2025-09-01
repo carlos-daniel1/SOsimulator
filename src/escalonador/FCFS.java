@@ -7,26 +7,26 @@ import cpu.CPU;
 import process.Processo;
 
 public class FCFS {
-    private CPU cpu;
+	private CPU cpu;
 
-    public FCFS(CPU cpu) {
-        this.cpu = cpu;
-    }
+	public FCFS(CPU cpu) {
+		this.cpu = cpu;
+	}
 
-    public void executar(List<Processo> processos) {
-        System.out.println("\nEscalonador FCFS");
+	public void executar(List<Processo> processos) {
+		System.out.println("\nEscalonador FCFS");
 
-        System.out.println("Processos recebidos:");
-        for (Processo p : processos) {
-            System.out.print(p);
-        }
+		System.out.println("Processos recebidos:");
+		for (Processo p : processos) {
+			System.out.print(p);
+		}
 
-        Queue<Processo> fila = new LinkedList<>(processos);
+		Queue<Processo> fila = new LinkedList<>(processos);
 
-        System.out.println("\nOrdem de execução FCFS:");
-        while (!fila.isEmpty()) {
-            Processo p = fila.poll();
-            cpu.executeInstruction(p);
-        }
-    }
+		System.out.println("\nOrdem de execução FCFS:");
+		while (!fila.isEmpty()) {
+			Processo p = fila.poll();
+			cpu.executeInstruction(p);
+		}
+	}
 }
