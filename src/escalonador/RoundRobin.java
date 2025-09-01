@@ -8,7 +8,11 @@ import process.Processo;
 public class RoundRobin {
 
 	int quantum = 5;
-	CPU processador = new CPU();
+	private CPU cpu;
+	
+	public RoundRobin(CPU cpu) {
+		this.cpu = cpu;
+	}
 
 	public void executeRoundRobin(Queue<Processo> queue) {
 
@@ -18,7 +22,7 @@ public class RoundRobin {
 			Processo processo = queue.poll();
 
 			if (processo.getQtdInstrucao() != 0) {
-				processador.executeRoundRobin(processo, quantum);
+				cpu.executeRoundRobin(processo, quantum);
 
 				System.out.println(String.format("Processo %d recebeu um quantum de: %d, restou: %d",
 						processo.getId(), quantum, processo.getQtdInstrucao()));
