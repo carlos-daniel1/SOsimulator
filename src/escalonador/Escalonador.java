@@ -1,16 +1,20 @@
 package escalonador;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import cpu.CPU;
 import process.ProcessGenerator;
+import process.Processo;
 
 public class Escalonador {
 
-    ProcessGenerator processGenerator = new ProcessGenerator();
-    CPU cpu = new CPU();
-
-    public void executeProcess() {
-        for (int i = 0; i < 10; i++) {
-            cpu.executeInstruction(processGenerator.generateProcess().get(i));
-        }
-    }
+	ProcessGenerator processGenerator = new ProcessGenerator();
+	CPU cpu = new CPU();
+	RoundRobin roundRobin = new RoundRobin();
+	Queue<Processo> queue = new LinkedList<>(processGenerator.generateProcess());
+	
+	public void executeProcess() {
+		roundRobin.executeRoundRobin(queue);
+	}
 }
