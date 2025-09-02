@@ -1,22 +1,23 @@
 package process;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class ProcessGenerator {
 
 	private static int nextId = 1;
 	private Random random = new Random();
-	ArrayList<Processo> arrayProcess = new ArrayList<Processo>();
 
-	public ArrayList<Processo> generateProcess() {
-		
-		for (int i = 0; i < 10; i++) {	
-			int gerarInstrucao = random.nextInt(41) + 10;
+	public Queue<Processo> generateProcess() {
+		Queue<Processo> filaProcessos = new LinkedList<>();
+
+		for (int i = 0; i < 10; i++) {
+			int gerarInstrucao = random.nextInt(11) + 10;
 			Processo newProcess = new Processo(nextId++, gerarInstrucao);
-			arrayProcess.add(newProcess);
+			filaProcessos.offer(newProcess);
 		}
 
-		return arrayProcess;
+		return filaProcessos;
 	}
 }

@@ -1,7 +1,5 @@
 package escalonador;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
@@ -15,7 +13,7 @@ public class Escalonador {
 	private RoundRobin roundRobin;
 	private SJF sjf;
 	private ProcessGenerator processGenerator;;
-	private ArrayList<Processo> processos;
+	private Queue<Processo> processos;
 	Random random = new Random();
 
 	public Escalonador() {
@@ -28,8 +26,10 @@ public class Escalonador {
 	}
 
 	public void executeProcess() {
-		int numero = random.nextInt(3) + 1;
 
+		while (!processos.isEmpty()) {
+			int numero = random.nextInt(3) + 1;
+			
 			if (numero == 1) {
 				fcfs.executar(processos);
 			} else if (numero == 2) {
@@ -37,6 +37,7 @@ public class Escalonador {
 			} else {
 				roundRobin.executeRoundRobin(processos);
 			}
+		}
 
 	}
 }

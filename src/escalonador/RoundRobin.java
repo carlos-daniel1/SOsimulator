@@ -1,7 +1,5 @@
 package escalonador;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import cpu.CPU;
@@ -16,28 +14,26 @@ public class RoundRobin {
 		this.cpu = cpu;
 	}
 
-	public void executeRoundRobin(List<Processo> processos) {
-		Queue<Processo> queue = new LinkedList<>(processos);
+	public void executeRoundRobin(Queue<Processo> processos) {
 
 		System.out.println("Executando Round Robin:");
 
-		while (!queue.isEmpty()) {
-		Processo processo = queue.poll();
+		Processo processo = processos.peek();
 
-		if (processo.getQtdInstrucao() != 0) {
+		if (processo.getQtdInstrucao() > 0) {
 			cpu.executeRoundRobin(processo, quantum);
+			processos.poll();
 
-			System.out.println(String.format("Processo %d recebeu um quantum de: %d, restou: %d", processo.getId(),
+			System.out.println(String.format("Round Robin: Processo %d recebeu um quantum de: %d, restou: %d", processo.getId(),
 					quantum, processo.getQtdInstrucao()));
 
 			if (processo.getQtdInstrucao() > 0) {
-                queue.offer(processo); 
-            }
-	
+				processos.offer(processo);
+			}
 
 		} else {
 			System.out.println(String.format("Processo %d finalizado", processo.getId()));
 		}
-		}
+
 	}
 }

@@ -1,7 +1,5 @@
 package escalonador;
 
-import java.util.List;
-import java.util.LinkedList;
 import java.util.Queue;
 import cpu.CPU;
 import process.Processo;
@@ -13,20 +11,23 @@ public class FCFS {
 		this.cpu = cpu;
 	}
 
-	public void executar(List<Processo> processos) {
+	public void executar(Queue<Processo> processos) {
 		System.out.println("\nEscalonador FCFS");
 
-		System.out.println("Processos recebidos:");
-		for (Processo p : processos) {
-			System.out.print(p);
-		}
+		Processo firstProcess = processos.peek();
 
-		Queue<Processo> fila = new LinkedList<>(processos);
+		System.out.println("\nExecução FCFS:");
+		while (firstProcess.getQtdInstrucao() > 0) {
+			
+			System.out.println(String.format("FCFS: Processo %d sendo executado, restou: %d instruções", firstProcess.getId(),
+        			firstProcess.getQtdInstrucao()));
+			
+			cpu.executeInstruction(firstProcess);
+			
+			if (firstProcess.getQtdInstrucao() == 0) {
+				processos.poll();
 
-		System.out.println("\nOrdem de execução FCFS:");
-		while (!fila.isEmpty()) {
-			Processo p = fila.poll();
-			cpu.executeInstruction(p);
+			}
 		}
 	}
 }
