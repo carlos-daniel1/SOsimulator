@@ -9,7 +9,7 @@ public class ProcessGenerator {
 	public Processo generateProcess() {
 		int gerarInstrucao = random.nextInt(41) + 10;
 		
-		Processo newProcess = new Processo(nextId, gerarInstrucao);
+		Processo newProcess = new Processo(nextId++, gerarInstrucao);
 		
 		return newProcess;
 		

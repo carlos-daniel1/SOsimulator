@@ -43,7 +43,7 @@ public class MemoryBlock {
 
 	@Override
 	public String toString() {
-		return "BlocoMemoria [id=" + id + ", tamanho=" + tamanho + ", processos=" + processos + "]";
+		return "BlocoMemoria id = " + id + ", tamanho = " + tamanho + ", processos = " + processos + "\n";
 	}
 
 	

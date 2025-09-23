@@ -2,30 +2,31 @@ package processo;
 
 public class Processo {
 	private int id;
-	private int qtdInstrucao;
+	private int tamanho;
 	
-	
-	public Processo(int id, int qtdInstrucao) {
+	public Processo(int id, int tamanho) {
 		this.id = id;
-		this.qtdInstrucao = qtdInstrucao;
+		this.tamanho = tamanho;
 	}
 	
+
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getQtdInstrucao() {
-		return qtdInstrucao;
+	public int getTamanho() {
+		return tamanho;
 	}
-	public void setQtdInstrucao(int qtdInstrucao) {
-		this.qtdInstrucao = qtdInstrucao;
+	public void setTamanho(int tamanho) {
+		this.tamanho = tamanho;
 	}
+
 
 	@Override
 	public String toString() {
-		return "Processo id = " + id + " qtdInstrucao = " + qtdInstrucao;
+		return "Processo " + id + ", tamanho =" + tamanho;
 	}
 	
 	
