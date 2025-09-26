@@ -13,6 +13,7 @@ public class Algorithms {
 			if (block.getTamanho() >= processo.getTamanho()) {
 				block.setProcessos(processo);
 				formatarMensagem(block, processo);
+				// melhorar esse metodo abaixo criando o alocar no memoryblock
 				block.setTamanho(block.getTamanho() - processo.getTamanho());
 				return true;
 
@@ -29,6 +30,7 @@ public class Algorithms {
 			if(block.getTamanho() >= processo.getTamanho()) {
 				block.setProcessos(processo);
 				formatarMensagem(block, processo);
+				// melhorar esse metodo abaixo criando o alocar no memoryblock
 				block.setTamanho(block.getTamanho() - processo.getTamanho());
 				apontador = i;
 				return true;
@@ -39,10 +41,27 @@ public class Algorithms {
 
 	}
 
-	public void bestFit(LinkedList<MemoryBlock> memory, Processo processo) {
+	public boolean bestFit(LinkedList<MemoryBlock> memory, Processo processo) {
+		int menorTamanho = 999;
+		MemoryBlock bestBlock = null;
 		for (MemoryBlock block : memory) {
+			int sobra = block.getTamanho() - processo.getTamanho();
 			
+			if (sobra >= 0 && sobra < menorTamanho) {
+				menorTamanho = sobra;
+	            bestBlock = block;
+	        }
 		}
+		if(bestBlock != null) {
+			bestBlock.setProcessos(processo);
+			formatarMensagem(bestBlock, processo);
+			// melhorar esse metodo abaixo criando o alocar no memoryblock
+			bestBlock.setTamanho(bestBlock.getTamanho() - processo.getTamanho());
+			return true;
+		}
+		
+		System.out.println("Processo id: " + processo.getId() + " não alocado!");
+	    return false;
 
 	}
 
