@@ -1,6 +1,8 @@
 package memory;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import processo.Processo;
 
@@ -45,7 +47,13 @@ public class MemoryBlock {
 	public String toString() {
 		return "BlocoMemoria id = " + id + ", tamanho = " + tamanho + ", processos = " + processos + "\n";
 	}
+	
+	public static void blocksSize(LinkedList<MemoryBlock> memory) {
+		String tamanhos = memory.stream()
+			    .map(bloco -> String.valueOf(bloco.getTamanho())) 
+			    .collect(Collectors.joining(", "));
 
-	
-	
+			System.out.println("Tamanhos dos Blocos: " + tamanhos);
+	}
+
 }

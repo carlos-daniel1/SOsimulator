@@ -1,30 +1,32 @@
 package memory;
 
 import java.util.LinkedList;
+import java.util.Random;
 
+import algorithms.Algorithms;
 import processo.ProcessGenerator;
 import processo.Processo;
 
 public class Memory {
 	LinkedList<MemoryBlock> memory = new LinkedList<>();
 	ProcessGenerator p = new ProcessGenerator();
+	Algorithms algoritmo = new Algorithms();
+	Random random = new Random();
 	Processo processo = null;
 
 	public void addBlock() {
-		for (int i = 0; i < 2; i++) {
-		    memory.add(new MemoryBlock(200));
+		for (int i = 0; i < 5; i++) {
+		    memory.add(new MemoryBlock(random.nextInt(50) + 20));
 		}
+		MemoryBlock.blocksSize(memory);
 	}
-	public void addProcessAtBlock() {
-	
-		for (MemoryBlock b : memory) {
+	public void alocarProcesso() {
+		for (int i = 0; i < 5; i++) {
 			processo = p.generateProcess();
-			if(b.getTamanho() > processo.getTamanho()) {
-				b.setProcessos(processo);
-				b.setTamanho(b.getTamanho() - processo.getTamanho());
-			}
+			algoritmo.firstFit(memory, processo);
 		}
 		
-		System.out.println(memory);
+		p.mediaTamanhoProcessos();
 	}
+	
 }	
