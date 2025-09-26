@@ -16,14 +16,14 @@ public class Memory {
 
 	public void addBlock() {
 		for (int i = 0; i < 5; i++) {
-		    memory.add(new MemoryBlock(random.nextInt(50) + 20));
+		    memory.add(new MemoryBlock(random.nextInt(30) + 20));
 		}
 		MemoryBlock.blocksSize(memory);
 	}
 	public void alocarProcesso() {
 		for (int i = 0; i < 5; i++) {
 			processo = p.generateProcess();
-			algoritmo.firstFit(memory, processo);
+			algoritmo.nextFit(memory, processo);
 		}
 		
 		p.mediaTamanhoProcessos();

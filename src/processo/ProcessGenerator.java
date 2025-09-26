@@ -5,7 +5,7 @@ import java.util.Random;
 public class ProcessGenerator {
 	private static int nextId = 1;
 	private Random random = new Random();
-	private int somaTamanhoProcessos = 0;
+	private double somaTamanhoProcessos = 0;
 	
 	public Processo generateProcess() {
 		int gerarTamanho = random.nextInt(41) + 10;
