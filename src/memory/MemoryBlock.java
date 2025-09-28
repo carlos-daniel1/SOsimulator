@@ -66,11 +66,5 @@ public class MemoryBlock {
 		return "BlocoMemoria id = " + id + ", tamanho = " + tamanho + ", processos = " + processos + "\n";
 	}
 
-	public static void blocksSize(LinkedList<MemoryBlock> memory) {
-		String tamanhos = memory.stream().map(bloco -> String.valueOf(bloco.getTamanho()))
-				.collect(Collectors.joining(", "));
-
-		System.out.println("Tamanhos dos Blocos: " + tamanhos);
-	}
 
 }

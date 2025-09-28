@@ -19,6 +19,6 @@ public class ProcessGenerator {
 	
 	public void mediaTamanhoProcessos() {
 		double media = somaTamanhoProcessos / (nextId - 1);
-		System.out.println("\nTamanho médio dos processos gerados: " + media);
+		System.out.printf("\nTamanho médio dos processos gerados: %.1f%% \n", media);
 	}
 }

@@ -2,6 +2,7 @@ package memory;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import algorithms.Algorithms;
 import processo.ProcessGenerator;
@@ -9,25 +10,27 @@ import processo.Processo;
 
 public class Memory {
 	LinkedList<MemoryBlock> memory = new LinkedList<>();
-	ProcessGenerator p = new ProcessGenerator();
+	ProcessGenerator geradorProcesso = new ProcessGenerator();
 	Algorithms algoritmo = new Algorithms();
 	Random random = new Random();
 	Processo processo = null;
 
 	public void addBlock() {
 		for (int i = 0; i < 5; i++) {
-		    memory.add(new MemoryBlock(random.nextInt(50) + 20));
-		}
-		MemoryBlock.blocksSize(memory);
+			memory.add(new MemoryBlock(random.nextInt(50) + 20));
+			
+		}		
+		    blocksSize(memory);
 	}
-	public void alocarProcesso() {
-		for (int i = 0; i < 5; i++) {
-			processo = p.generateProcess();
-			algoritmo.worstFit(memory, processo);
-		}
-		
-		p.mediaTamanhoProcessos();
-		System.out.println(String.format("Taxa de descarte: %.0f%%", MemoryBlock.getTaxaDescarte()));
+	public void alocarProcesso(Processo p) {
+			algoritmo.worstFit(memory, p);
 	}
 	
+	
+	private static void blocksSize(LinkedList<MemoryBlock> memory) {
+		String tamanhos = memory.stream().map(bloco -> String.valueOf(bloco.getTamanho()))
+				.collect(Collectors.joining(", "));
+
+		System.out.println("Tamanhos dos Blocos: " + tamanhos);
+	}
 }	
