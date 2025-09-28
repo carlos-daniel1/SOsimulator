@@ -13,8 +13,7 @@ public class Algorithms {
 			if (block.getTamanho() >= processo.getTamanho()) {
 				block.setProcessos(processo);
 				formatarMensagem(block, processo);
-				// melhorar esse metodo abaixo criando o alocar no memoryblock
-				block.setTamanho(block.getTamanho() - processo.getTamanho());
+				block.alocar(processo.getTamanho());
 				return true;
 
 			}
@@ -30,8 +29,7 @@ public class Algorithms {
 			if(block.getTamanho() >= processo.getTamanho()) {
 				block.setProcessos(processo);
 				formatarMensagem(block, processo);
-				// melhorar esse metodo abaixo criando o alocar no memoryblock
-				block.setTamanho(block.getTamanho() - processo.getTamanho());
+				block.alocar(processo.getTamanho());
 				apontador = i;
 				return true;
 			}
@@ -55,8 +53,7 @@ public class Algorithms {
 		if(bestBlock != null) {
 			bestBlock.setProcessos(processo);
 			formatarMensagem(bestBlock, processo);
-			// melhorar esse metodo abaixo criando o alocar no memoryblock
-			bestBlock.setTamanho(bestBlock.getTamanho() - processo.getTamanho());
+			bestBlock.alocar(processo.getTamanho());
 			return true;
 		}
 		

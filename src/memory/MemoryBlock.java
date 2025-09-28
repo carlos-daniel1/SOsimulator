@@ -34,6 +34,10 @@ public class MemoryBlock {
 		processos.add(p);
 	}
 	
+	public void alocar(int tamanhoProcesso) {
+		tamanho -= tamanhoProcesso;
+	}
+	
 	public int getId() {
 		return id;
 	}
