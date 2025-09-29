@@ -14,23 +14,35 @@ public class Memory {
 	Algorithms algoritmo = new Algorithms();
 	Random random = new Random();
 	Processo processo = null;
+	private int somaBlocosGerados = 0;
 
-	public void addBlock() {
-		for (int i = 0; i < 5; i++) {
-			memory.add(new MemoryBlock(random.nextInt(50) + 20));
+	public void addBlock(int quantidade) {
+		for (int i = 0; i < quantidade; i++) {
+			int randomNumber = random.nextInt(150) + 20;
+			memory.add(new MemoryBlock(randomNumber));
+			somaBlocosGerados += randomNumber;
 			
 		}		
 		    blocksSize(memory);
 	}
 	public void alocarProcesso(Processo p) {
-			algoritmo.worstFit(memory, p);
+			algoritmo.firstFit(memory, p);
 	}
 	
 	
-	private static void blocksSize(LinkedList<MemoryBlock> memory) {
+	private void blocksSize(LinkedList<MemoryBlock> memory) {
 		String tamanhos = memory.stream().map(bloco -> String.valueOf(bloco.getTamanho()))
 				.collect(Collectors.joining(", "));
 
 		System.out.println("Tamanhos dos Blocos: " + tamanhos);
+	}
+	
+	public double taxaOcupacao() {
+		int tamanhoAtual = memory.stream()
+                .mapToInt(MemoryBlock::getTamanho)
+                .sum();
+		
+		return (tamanhoAtual * 100.0) / somaBlocosGerados;
+		
 	}
 }	

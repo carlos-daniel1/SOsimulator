@@ -9,47 +9,59 @@ import memory.MemoryBlock;
 import processo.ProcessGenerator;
 import processo.Processo;
 
-
 public class Main {
 	public static void main(String[] args) {
 		Memory memory = new Memory();
 		ProcessGenerator geradorProcesso = new ProcessGenerator();
-		Processo processo = null;
-		final Processo[] processoWrapper = new Processo[1];
-		
-		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2); // 2 threads
-		int intervalo2 = 2;    // segundos
-		int intervalo1 = 1;     // segundos
-		int tempoTotal = 10;    // segundos
+		final Processo[] arrayProcessos = new Processo[2];
+
+		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+		int intervalo2 = 2;
+		int intervalo1 = 1;
+		int tempoTotal = 20;
 
 		long tempoInicial = System.currentTimeMillis();
 
-		// a cada 1 s
+		double[] somaOcupacao = { 0.0 };
+		int[] segundos = { 0 };
+
 		Runnable tarefa1s = () -> {
-		    long tempoDecorrido = (System.currentTimeMillis() - tempoInicial) / 1000;
-		    processoWrapper[0] = geradorProcesso.generateProcess();
-		    
-		    
-		    memory.alocarProcesso(processoWrapper[0]);
-		    
+			long tempoDecorrido = (System.currentTimeMillis() - tempoInicial) / 1000;
+			arrayProcessos[0] = geradorProcesso.generateProcess();
+			arrayProcessos[1] = geradorProcesso.generateProcess();
 
-		    if (tempoDecorrido >= tempoTotal) {
-		        scheduler.shutdown();
-		        geradorProcesso.mediaTamanhoProcessos();
-		        System.out.println(String.format("Taxa de descarte: %.0f%%", MemoryBlock.getTaxaDescarte()));
-		    }
+			memory.alocarProcesso(arrayProcessos[0]);
+			memory.alocarProcesso(arrayProcessos[1]);
+
+			double ocupacaoAtual = memory.taxaOcupacao();
+			somaOcupacao[0] += ocupacaoAtual;
+			segundos[0]++;
+
+
+			if (tempoDecorrido >= tempoTotal) {
+				scheduler.shutdown();
+				geradorProcesso.mediaTamanhoProcessos();
+				System.out.println(String.format("Taxa de descarte: %.0f%%", MemoryBlock.getTaxaDescarte()));
+
+				double ocupacaoMedia = somaOcupacao[0] / segundos[0];
+				System.out.printf("Ocupação média da memória: %.2f%%\n", ocupacaoMedia);
+			}
+			
+			if (MemoryBlock.getTaxaDescarte() > 30) {
+				System.out.println("---------------Aumentando memória---------------");
+				memory.addBlock(1);
+			}
+
 		};
 
-		// a cada 2s
 		Runnable tarefa2s = () -> {
-		    long tempoDecorrido = (System.currentTimeMillis() - tempoInicial) / 1000;
+			long tempoDecorrido = (System.currentTimeMillis() - tempoInicial) / 1000;
 		};
-		
-		memory.addBlock();
-		
+
+		memory.addBlock(10);
+
 		scheduler.scheduleAtFixedRate(tarefa1s, 0, intervalo1, TimeUnit.SECONDS);
 		scheduler.scheduleAtFixedRate(tarefa2s, 0, intervalo2, TimeUnit.SECONDS);
-		
-	        
+
 	}
 }
