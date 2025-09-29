@@ -26,7 +26,7 @@ public class Processo {
 
 	@Override
 	public String toString() {
-		return "Processo " + id + ", tamanho =" + tamanho;
+		return "Processo " + id + ", tamanho = " + tamanho;
 	}
 	
 	

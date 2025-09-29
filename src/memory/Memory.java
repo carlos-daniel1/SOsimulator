@@ -26,7 +26,7 @@ public class Memory {
 		    blocksSize(memory);
 	}
 	public void alocarProcesso(Processo p) {
-			algoritmo.firstFit(memory, p);
+			algoritmo.nextFit(memory, p);
 	}
 	
 	
@@ -52,9 +52,9 @@ public class Memory {
 		
 		MemoryBlock bloco = memory.get(randomNumber);
 		
-		if(!bloco.getProcessos().isEmpty()) {
-			System.out.println("Processo removido aleatoriamente: " + bloco.getProcessos().get(0));
-			bloco.removerProcesso();
-		}
+		if(bloco.getProcessos().isEmpty()) {
+			removerProcessoAleatorio();	
+		} 	
+		System.out.println("Processo removido aleatoriamente: " + bloco.removerProcesso());
 	}
 }	

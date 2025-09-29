@@ -18,7 +18,7 @@ public class Main {
 		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 		int intervalo2 = 2;
 		int intervalo1 = 1;
-		int tempoTotal = 5;
+		int tempoTotal = 20;
 
 		long tempoInicial = System.currentTimeMillis();
 
@@ -37,7 +37,8 @@ public class Main {
 			somaOcupacao[0] += ocupacaoAtual;
 			segundos[0]++;
 
-
+			
+			
 			if (tempoDecorrido >= tempoTotal) {
 				scheduler.shutdown();
 				geradorProcesso.mediaTamanhoProcessos();
@@ -55,14 +56,13 @@ public class Main {
 		};
 
 		Runnable tarefa2s = () -> {
-			long tempoDecorrido = (System.currentTimeMillis() - tempoInicial) / 1000;
 			memory.removerProcessoAleatorio();
 		};
 
 		memory.addBlock(10);
 
 		scheduler.scheduleAtFixedRate(tarefa1s, 0, intervalo1, TimeUnit.SECONDS);
-		scheduler.scheduleAtFixedRate(tarefa2s, 0, intervalo2, TimeUnit.SECONDS);
+		scheduler.scheduleAtFixedRate(tarefa2s, 1, intervalo2, TimeUnit.SECONDS);
 
 	}
 }
