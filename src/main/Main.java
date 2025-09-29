@@ -18,7 +18,7 @@ public class Main {
 		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 		int intervalo2 = 2;
 		int intervalo1 = 1;
-		int tempoTotal = 20;
+		int tempoTotal = 5;
 
 		long tempoInicial = System.currentTimeMillis();
 
@@ -56,6 +56,7 @@ public class Main {
 
 		Runnable tarefa2s = () -> {
 			long tempoDecorrido = (System.currentTimeMillis() - tempoInicial) / 1000;
+			memory.removerProcessoAleatorio();
 		};
 
 		memory.addBlock(10);

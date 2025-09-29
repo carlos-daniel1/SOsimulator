@@ -36,6 +36,10 @@ public class MemoryBlock {
 		processos.add(p);
 		alocados++;
 	}
+	
+	public void removerProcesso() {
+		processos.removeFirst();
+	}
 
 	public static void naoAlocar() {
 		naoAlocados++;

@@ -45,4 +45,16 @@ public class Memory {
 		return (tamanhoAtual * 100.0) / somaBlocosGerados;
 		
 	}
+	
+	public void removerProcessoAleatorio() {
+		
+		int randomNumber = random.nextInt(memory.size());
+		
+		MemoryBlock bloco = memory.get(randomNumber);
+		
+		if(!bloco.getProcessos().isEmpty()) {
+			System.out.println("Processo removido aleatoriamente: " + bloco.getProcessos().get(0));
+			bloco.removerProcesso();
+		}
+	}
 }	
